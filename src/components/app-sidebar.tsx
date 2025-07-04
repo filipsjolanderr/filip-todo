@@ -1,179 +1,159 @@
-import * as React from "react"
-import {
-  ArrowUpCircleIcon,
-  BarChartIcon,
-  CameraIcon,
-  ClipboardListIcon,
-  DatabaseIcon,
-  FileCodeIcon,
-  FileIcon,
-  FileTextIcon,
-  FolderIcon,
-  HelpCircleIcon,
-  LayoutDashboardIcon,
-  ListIcon,
-  SearchIcon,
-  SettingsIcon,
-  UsersIcon,
-} from "lucide-react"
+import type * as React from "react"
+import { Calendar, CheckSquare, Clock, Home, Inbox, Settings, Target, TrendingUp, Zap } from "lucide-react"
 
-import { NavDocuments } from "~/components/nav-documents"
 import { NavMain } from "~/components/nav-main"
+import { NavProjects } from "~/components/nav-projects"
 import { NavSecondary } from "~/components/nav-secondary"
-import { NavUser } from "~/components/nav-user"
-import {
-  Sidebar,
-  SidebarContent,
-  SidebarFooter,
-  SidebarHeader,
-  SidebarMenu,
-  SidebarMenuButton,
-  SidebarMenuItem,
-} from "~/components/ui/sidebar"
+import { NavSmartLists } from "~/components/nav-smart-lists"
+import { TeamSwitcher } from "~/components/team-switcher"
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "~/components/ui/sidebar"
 
+// Smart Todo App Data
 const data = {
-  user: {
-    name: "shadcn",
-    email: "m@example.com",
-    avatar: "/avatars/shadcn.jpg",
-  },
-  navMain: [
+  teams: [
     {
-      title: "Dashboard",
-      url: "#",
-      icon: LayoutDashboardIcon,
+      name: "Personal",
+      logo: Target,
+      plan: "Pro",
     },
     {
-      title: "Lifecycle",
-      url: "#",
-      icon: ListIcon,
+      name: "Work",
+      logo: TrendingUp,
+      plan: "Team",
     },
     {
-      title: "Analytics",
-      url: "#",
-      icon: BarChartIcon,
-    },
-    {
-      title: "Projects",
-      url: "#",
-      icon: FolderIcon,
-    },
-    {
-      title: "Team",
-      url: "#",
-      icon: UsersIcon,
+      name: "Family",
+      logo: Home,
+      plan: "Free",
     },
   ],
-  navClouds: [
+  navMain: [
     {
-      title: "Capture",
-      icon: CameraIcon,
+      title: "Inbox",
+      url: "#",
+      icon: Inbox,
+      badge: "3",
+    },
+    {
+      title: "Today",
+      url: "#",
+      icon: Calendar,
       isActive: true,
-      url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      badge: "5",
     },
     {
-      title: "Proposal",
-      icon: FileTextIcon,
+      title: "Upcoming",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: Clock,
+      badge: "12",
     },
     {
-      title: "Prompts",
-      icon: FileCodeIcon,
+      title: "Completed",
       url: "#",
-      items: [
-        {
-          title: "Active Proposals",
-          url: "#",
-        },
-        {
-          title: "Archived",
-          url: "#",
-        },
-      ],
+      icon: CheckSquare,
+    },
+  ],
+  smartLists: [
+    {
+      name: "High Priority",
+      url: "#",
+      icon: "🔥",
+      count: 4,
+    },
+    {
+      name: "Due Today",
+      url: "#",
+      icon: "⏰",
+      count: 2,
+    },
+    {
+      name: "Overdue",
+      url: "#",
+      icon: "⚠️",
+      count: 1,
+    },
+    {
+      name: "Quick Tasks",
+      url: "#",
+      icon: "⚡",
+      count: 6,
+    },
+    {
+      name: "Waiting For",
+      url: "#",
+      icon: "⏳",
+      count: 3,
+    },
+  ],
+  projects: [
+    {
+      name: "Website Redesign",
+      url: "#",
+      icon: "💻",
+      color: "bg-blue-500",
+      tasks: 8,
+    },
+    {
+      name: "Marketing Campaign",
+      url: "#",
+      icon: "📈",
+      color: "bg-green-500",
+      tasks: 12,
+    },
+    {
+      name: "Home Renovation",
+      url: "#",
+      icon: "🏠",
+      color: "bg-orange-500",
+      tasks: 15,
+    },
+    {
+      name: "Learning Spanish",
+      url: "#",
+      icon: "🇪🇸",
+      color: "bg-purple-500",
+      tasks: 5,
+    },
+    {
+      name: "Fitness Goals",
+      url: "#",
+      icon: "💪",
+      color: "bg-red-500",
+      tasks: 7,
     },
   ],
   navSecondary: [
     {
+      title: "AI Schedule",
+      url: "#",
+      icon: Zap,
+    },
+    {
+      title: "Analytics",
+      url: "#",
+      icon: TrendingUp,
+    },
+    {
       title: "Settings",
       url: "#",
-      icon: SettingsIcon,
-    },
-    {
-      title: "Get Help",
-      url: "#",
-      icon: HelpCircleIcon,
-    },
-    {
-      title: "Search",
-      url: "#",
-      icon: SearchIcon,
-    },
-  ],
-  documents: [
-    {
-      name: "Data Library",
-      url: "#",
-      icon: DatabaseIcon,
-    },
-    {
-      name: "Reports",
-      url: "#",
-      icon: ClipboardListIcon,
-    },
-    {
-      name: "Word Assistant",
-      url: "#",
-      icon: FileIcon,
+      icon: Settings,
     },
   ],
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   return (
-    <Sidebar collapsible="offcanvas" {...props}>
+    <Sidebar className="border-r-0" {...props}>
       <SidebarHeader>
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton
-              asChild
-              className="data-[slot=sidebar-menu-button]:!p-1.5"
-            >
-              <a href="#">
-                <ArrowUpCircleIcon className="h-5 w-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
-              </a>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <TeamSwitcher teams={data.teams} />
+        <NavMain items={data.navMain} />
       </SidebarHeader>
       <SidebarContent>
-        <NavMain items={data.navMain} />
-        <NavDocuments items={data.documents} />
+        <NavSmartLists smartLists={data.smartLists} />
+        <NavProjects projects={data.projects} />
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
-      <SidebarFooter>
-        <NavUser user={data.user} />
-      </SidebarFooter>
+      <SidebarRail />
     </Sidebar>
   )
 }
