@@ -2,10 +2,13 @@ import { drizzle } from 'drizzle-orm/postgres-js';
 import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import postgres from 'postgres';
 
-const connectionString = process.env.DATABASE_URL || "postgresql://localhost:5432/filip_todo";
+const connectionString = process.env.DATABASE_URL || "postgresql://postgres:password@localhost:5432/filip_todo";
 
 async function runMigrations() {
-  const sql = postgres(connectionString, { max: 1 });
+  const sql = postgres(connectionString, { 
+    max: 1,
+    connect_timeout: 10,
+  });
   const db = drizzle(sql);
   
   try {

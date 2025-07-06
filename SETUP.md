@@ -8,7 +8,7 @@ Create a `.env` file in the root directory with the following variables:
 
 ```env
 # Database
-DATABASE_URL="postgresql://username:password@localhost:5432/filip_todo"
+DATABASE_URL="postgresql://postgres:password@localhost:5432/filip_todo"
 
 # Better Auth
 BETTER_AUTH_SECRET="your-secret-key-here"
@@ -21,16 +21,36 @@ BETTER_AUTH_URL="http://localhost:5173"
 
 ## Database Setup
 
-1. Make sure PostgreSQL is running and create a database named `filip_todo`
-2. Run the following commands to set up the database schema:
+1. **Install PostgreSQL** if you haven't already:
+   - Windows: Download from https://www.postgresql.org/download/windows/
+   - macOS: `brew install postgresql`
+   - Linux: `sudo apt-get install postgresql postgresql-contrib`
 
-```bash
-# Generate migrations
-npm run db:generate
+2. **Start PostgreSQL service**:
+   - Windows: Start the PostgreSQL service from Services
+   - macOS: `brew services start postgresql`
+   - Linux: `sudo systemctl start postgresql`
 
-# Apply migrations
-npm run db:migrate
-```
+3. **Create the database**:
+   ```bash
+   # Connect to PostgreSQL as the postgres user
+   psql -U postgres
+   
+   # Create the database
+   CREATE DATABASE filip_todo;
+   
+   # Exit psql
+   \q
+   ```
+
+4. **Run the following commands to set up the database schema**:
+   ```bash
+   # Generate migrations
+   npm run db:generate
+
+   # Apply migrations
+   npm run db:migrate
+   ```
 
 ## Better Auth Setup
 
@@ -42,6 +62,38 @@ npm run db:migrate
 2. Add the generated key to your `.env` file as `BETTER_AUTH_SECRET`
 
 3. The auth routes are already configured at `/api/auth/*`
+
+## Troubleshooting
+
+### Database Connection Issues
+
+If you get connection timeout errors:
+
+1. **Check if PostgreSQL is running**:
+   ```bash
+   # Windows
+   net start postgresql-x64-15
+   
+   # macOS/Linux
+   sudo systemctl status postgresql
+   ```
+
+2. **Verify your connection string**:
+   - Default: `postgresql://postgres:password@localhost:5432/filip_todo`
+   - Update username/password if different
+   - Make sure the database `filip_todo` exists
+
+3. **Test connection manually**:
+   ```bash
+   psql -U postgres -d filip_todo -h localhost
+   ```
+
+### Import Path Issues
+
+The project uses the `~/*` path alias (not `@/*`). Make sure all imports use:
+```tsx
+import { Component } from '~/components/ui/component';
+```
 
 ## Available Scripts
 
@@ -66,8 +118,8 @@ The following components are available in `src/components/auth/`:
 Import the auth components and hooks:
 
 ```tsx
-import { LoginForm, SignUpForm } from '@/components/auth';
-import { useUser } from '@/hooks/useAuth';
+import { LoginForm, SignUpForm } from '~/components/auth';
+import { useUser } from '~/hooks/useAuth';
 
 // In your component
 const { user, isAuthenticated, isLoading } = useUser();

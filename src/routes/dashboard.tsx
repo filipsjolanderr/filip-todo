@@ -1,6 +1,6 @@
-import { useUser } from '@/lib/auth';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { useUser } from '~/hooks/useAuth';
+import { Button } from '~/components/ui/button';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card';
 
 export default function DashboardPage() {
   const { user, isAuthenticated, isLoading } = useUser();
