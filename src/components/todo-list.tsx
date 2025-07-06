@@ -197,7 +197,7 @@ export function TodoList() {
 
     const schedule: ScheduleItem[] = []
     let currentTime = new Date()
-    currentTime.setHours(9, 0, 0, 0) // Start at 9 AM
+    currentTime.setHours(8, 0, 0, 0) // Start at 8 AM
 
     // Add morning routine
     schedule.push({
