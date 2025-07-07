@@ -2,14 +2,14 @@
 
 import * as React from "react"
 import { Clock, Flag, Plus, Zap, Coffee, Brain, Utensils, Edit2, Check, X, CalendarDays } from "lucide-react"
-import { Button } from "~/components/ui/button"
-import { Input } from "~/components/ui/input"
-import { Checkbox } from "~/components/ui/checkbox"
-import { Badge } from "~/components/ui/badge"
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "~/components/ui/select"
-import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card"
-import { Label } from "~/components/ui/label"
-import { useLocalStorage } from "~/hooks/use-local-storage"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Checkbox } from "@/components/ui/checkbox"
+import { Badge } from "@/components/ui/badge"
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Label } from "@/components/ui/label"
+import { useLocalStorage } from "@/hooks/use-local-storage"
 
 interface Todo {
   id: string

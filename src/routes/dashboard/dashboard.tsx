@@ -1,19 +1,19 @@
 import { createFileRoute } from '@tanstack/react-router'
-import { AppSidebar } from "~/components/app-sidebar"
-import { NavActions } from "~/components/nav-actions"
+import { AppSidebar } from "@/components/app-sidebar"
+import { NavActions } from "@/components/nav-actions"
 import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbList,
     BreadcrumbPage,
-} from "~/components/ui/breadcrumb"
-import { Separator } from "~/components/ui/separator"
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
 import {
     SidebarInset,
     SidebarProvider,
     SidebarTrigger,
-} from "~/components/ui/sidebar"
-import { TodoList } from '~/components/todo-list'
+} from "@/components/ui/sidebar"
+import { TodoList } from '@/components/todo-list'
 
 export const Route = createFileRoute('/dashboard/dashboard')({
     component: Dashboard,

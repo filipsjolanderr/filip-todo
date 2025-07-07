@@ -1,12 +1,12 @@
 import type * as React from "react"
 import { Calendar, CheckSquare, Clock, Home, Inbox, Settings, Target, TrendingUp, Zap } from "lucide-react"
 
-import { NavMain } from "~/components/nav-main"
-import { NavProjects } from "~/components/nav-projects"
-import { NavSecondary } from "~/components/nav-secondary"
-import { NavSmartLists } from "~/components/nav-smart-lists"
-import { TeamSwitcher } from "~/components/team-switcher"
-import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "~/components/ui/sidebar"
+import { NavMain } from "@/components/nav-main"
+import { NavProjects } from "@/components/nav-projects"
+import { NavSecondary } from "@/components/nav-secondary"
+import { NavSmartLists } from "@/components/nav-smart-lists"
+import { TeamSwitcher } from "@/components/team-switcher"
+import { Sidebar, SidebarContent, SidebarHeader, SidebarRail } from "@/components/ui/sidebar"
 
 // Smart Todo App Data
 const data = {
