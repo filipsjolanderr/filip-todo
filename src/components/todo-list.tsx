@@ -451,7 +451,7 @@ export function TodoList() {
             {optimizedSchedule.map((item, index) => (
               <div key={item.id}>
                 <div
-                  className={`flex items-start gap-3 p-3 rounded-lg transition-all hover:shadow-sm ${item.type === "task"
+                  className={`flex items-start gap-3 p-3 rounded-lg transition-all hover:shadow-xs ${item.type === "task"
                       ? "bg-background border"
                       : item.type === "break"
                         ? "bg-blue-50 border border-blue-200"
@@ -606,7 +606,7 @@ function TodoItem({
 
   return (
     <div
-      className={`flex items-center gap-3 p-4 rounded-lg border transition-all hover:shadow-sm group ${todo.completed ? "bg-muted/50 opacity-60" : "bg-background"
+      className={`flex items-center gap-3 p-4 rounded-lg border transition-all hover:shadow-xs group ${todo.completed ? "bg-muted/50 opacity-60" : "bg-background"
         }`}
     >
       <Checkbox checked={todo.completed} onCheckedChange={onToggle} className="mt-0.5" />
