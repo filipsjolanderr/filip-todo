@@ -21,16 +21,12 @@ import { Route as UsersIndexRouteImport } from './routes/users.index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
-import { Route as DashboardDashboardRouteImport } from './routes/dashboard/dashboard'
+import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
 import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
 import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.deep'
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 import { ServerRoute as CustomScriptDotjsServerRouteImport } from './routes/customScript[.]js'
-import { ServerRoute as ApiUsersServerRouteImport } from './routes/api/users'
-import { ServerRoute as ApiTestServerRouteImport } from './routes/api/test'
-import { ServerRoute as ApiMeServerRouteImport } from './routes/api/me'
-import { ServerRoute as ApiUsersUserIdServerRouteImport } from './routes/api/users.$userId'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -84,9 +80,9 @@ const PostsPostIdRoute = PostsPostIdRouteImport.update({
   path: '/$postId',
   getParentRoute: () => PostsRoute,
 } as any)
-const DashboardDashboardRoute = DashboardDashboardRouteImport.update({
-  id: '/dashboard/dashboard',
-  path: '/dashboard/dashboard',
+const AuthPathnameRoute = AuthPathnameRouteImport.update({
+  id: '/auth/$pathname',
+  path: '/auth/$pathname',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PathlessLayoutNestedLayoutRoute =
@@ -116,26 +112,6 @@ const CustomScriptDotjsServerRoute = CustomScriptDotjsServerRouteImport.update({
   path: '/customScript.js',
   getParentRoute: () => rootServerRouteImport,
 } as any)
-const ApiUsersServerRoute = ApiUsersServerRouteImport.update({
-  id: '/api/users',
-  path: '/api/users',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiTestServerRoute = ApiTestServerRouteImport.update({
-  id: '/api/test',
-  path: '/api/test',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiMeServerRoute = ApiMeServerRouteImport.update({
-  id: '/api/me',
-  path: '/api/me',
-  getParentRoute: () => rootServerRouteImport,
-} as any)
-const ApiUsersUserIdServerRoute = ApiUsersUserIdServerRouteImport.update({
-  id: '/$userId',
-  path: '/$userId',
-  getParentRoute: () => ApiUsersServerRoute,
-} as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -148,7 +124,7 @@ export interface FileRoutesByFullPath {
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
-  '/dashboard/dashboard': typeof DashboardDashboardRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
@@ -161,7 +137,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/deferred': typeof DeferredRoute
   '/redirect': typeof RedirectRoute
-  '/dashboard/dashboard': typeof DashboardDashboardRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
@@ -179,7 +155,7 @@ export interface FileRoutesById {
   '/redirect': typeof RedirectRoute
   '/users': typeof UsersRouteWithChildren
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
-  '/dashboard/dashboard': typeof DashboardDashboardRoute
+  '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
@@ -196,7 +172,7 @@ export interface FileRouteTypes {
     | '/posts'
     | '/redirect'
     | '/users'
-    | '/dashboard/dashboard'
+    | '/auth/$pathname'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
@@ -209,7 +185,7 @@ export interface FileRouteTypes {
     | '/'
     | '/deferred'
     | '/redirect'
-    | '/dashboard/dashboard'
+    | '/auth/$pathname'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts'
@@ -226,7 +202,7 @@ export interface FileRouteTypes {
     | '/redirect'
     | '/users'
     | '/_pathlessLayout/_nested-layout'
-    | '/dashboard/dashboard'
+    | '/auth/$pathname'
     | '/posts/$postId'
     | '/users/$userId'
     | '/posts/'
@@ -243,66 +219,32 @@ export interface RootRouteChildren {
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
   UsersRoute: typeof UsersRouteWithChildren
-  DashboardDashboardRoute: typeof DashboardDashboardRoute
+  AuthPathnameRoute: typeof AuthPathnameRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 export interface FileServerRoutesByFullPath {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
-  '/api/me': typeof ApiMeServerRoute
-  '/api/test': typeof ApiTestServerRoute
-  '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRoutesByTo {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
-  '/api/me': typeof ApiMeServerRoute
-  '/api/test': typeof ApiTestServerRoute
-  '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
   '/customScript.js': typeof CustomScriptDotjsServerRoute
-  '/api/me': typeof ApiMeServerRoute
-  '/api/test': typeof ApiTestServerRoute
-  '/api/users': typeof ApiUsersServerRouteWithChildren
   '/api/auth/$': typeof ApiAuthSplatServerRoute
-  '/api/users/$userId': typeof ApiUsersUserIdServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths:
-    | '/customScript.js'
-    | '/api/me'
-    | '/api/test'
-    | '/api/users'
-    | '/api/auth/$'
-    | '/api/users/$userId'
+  fullPaths: '/customScript.js' | '/api/auth/$'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to:
-    | '/customScript.js'
-    | '/api/me'
-    | '/api/test'
-    | '/api/users'
-    | '/api/auth/$'
-    | '/api/users/$userId'
-  id:
-    | '__root__'
-    | '/customScript.js'
-    | '/api/me'
-    | '/api/test'
-    | '/api/users'
-    | '/api/auth/$'
-    | '/api/users/$userId'
+  to: '/customScript.js' | '/api/auth/$'
+  id: '__root__' | '/customScript.js' | '/api/auth/$'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
   CustomScriptDotjsServerRoute: typeof CustomScriptDotjsServerRoute
-  ApiMeServerRoute: typeof ApiMeServerRoute
-  ApiTestServerRoute: typeof ApiTestServerRoute
-  ApiUsersServerRoute: typeof ApiUsersServerRouteWithChildren
   ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
 }
 
@@ -378,11 +320,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsPostIdRouteImport
       parentRoute: typeof PostsRoute
     }
-    '/dashboard/dashboard': {
-      id: '/dashboard/dashboard'
-      path: '/dashboard/dashboard'
-      fullPath: '/dashboard/dashboard'
-      preLoaderRoute: typeof DashboardDashboardRouteImport
+    '/auth/$pathname': {
+      id: '/auth/$pathname'
+      path: '/auth/$pathname'
+      fullPath: '/auth/$pathname'
+      preLoaderRoute: typeof AuthPathnameRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_pathlessLayout/_nested-layout': {
@@ -423,34 +365,6 @@ declare module '@tanstack/react-start/server' {
       fullPath: '/customScript.js'
       preLoaderRoute: typeof CustomScriptDotjsServerRouteImport
       parentRoute: typeof rootServerRouteImport
-    }
-    '/api/users': {
-      id: '/api/users'
-      path: '/api/users'
-      fullPath: '/api/users'
-      preLoaderRoute: typeof ApiUsersServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/test': {
-      id: '/api/test'
-      path: '/api/test'
-      fullPath: '/api/test'
-      preLoaderRoute: typeof ApiTestServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/me': {
-      id: '/api/me'
-      path: '/api/me'
-      fullPath: '/api/me'
-      preLoaderRoute: typeof ApiMeServerRouteImport
-      parentRoute: typeof rootServerRouteImport
-    }
-    '/api/users/$userId': {
-      id: '/api/users/$userId'
-      path: '/$userId'
-      fullPath: '/api/users/$userId'
-      preLoaderRoute: typeof ApiUsersUserIdServerRouteImport
-      parentRoute: typeof ApiUsersServerRoute
     }
     '/api/auth/$': {
       id: '/api/auth/$'
@@ -516,18 +430,6 @@ const UsersRouteChildren: UsersRouteChildren = {
 
 const UsersRouteWithChildren = UsersRoute._addFileChildren(UsersRouteChildren)
 
-interface ApiUsersServerRouteChildren {
-  ApiUsersUserIdServerRoute: typeof ApiUsersUserIdServerRoute
-}
-
-const ApiUsersServerRouteChildren: ApiUsersServerRouteChildren = {
-  ApiUsersUserIdServerRoute: ApiUsersUserIdServerRoute,
-}
-
-const ApiUsersServerRouteWithChildren = ApiUsersServerRoute._addFileChildren(
-  ApiUsersServerRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
@@ -535,7 +437,7 @@ const rootRouteChildren: RootRouteChildren = {
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
   UsersRoute: UsersRouteWithChildren,
-  DashboardDashboardRoute: DashboardDashboardRoute,
+  AuthPathnameRoute: AuthPathnameRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
@@ -543,9 +445,6 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
   CustomScriptDotjsServerRoute: CustomScriptDotjsServerRoute,
-  ApiMeServerRoute: ApiMeServerRoute,
-  ApiTestServerRoute: ApiTestServerRoute,
-  ApiUsersServerRoute: ApiUsersServerRouteWithChildren,
   ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport

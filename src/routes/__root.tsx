@@ -9,6 +9,7 @@ import * as React from 'react'
 import { DefaultCatchBoundary } from '~/components/DefaultCatchBoundary'
 import { NotFound } from '~/components/NotFound'
 import { SidebarProvider } from '~/components/ui/sidebar'
+import { Providers } from '~/routes/providers'
 import appCss from '~/styles/app.css?url'
 import { seo } from '~/utils/seo'
 
@@ -69,16 +70,18 @@ function RootDocument({ children }: { children: React.ReactNode }) {
         <HeadContent />
       </head>
       <body>
-        <SidebarProvider
-          style={
-            {
-              "--sidebar-width": "calc(var(--spacing) * 72)",
-              "--header-height": "calc(var(--spacing) * 12)",
-            } as React.CSSProperties
-          }
-        >
-          {children}
-        </SidebarProvider>
+        <Providers>
+          <SidebarProvider
+            style={
+              {
+                "--sidebar-width": "calc(var(--spacing) * 72)",
+                "--header-height": "calc(var(--spacing) * 12)",
+              } as React.CSSProperties
+            }
+          >
+            {children}
+          </SidebarProvider>
+        </Providers>
         <TanStackRouterDevtools position="bottom-right" />
         <Scripts />
       </body>
