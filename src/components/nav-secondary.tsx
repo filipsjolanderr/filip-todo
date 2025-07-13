@@ -7,7 +7,10 @@ import {
   SidebarMenu,
   SidebarMenuButton,
   SidebarMenuItem,
+  SidebarSeparator,
 } from "~/components/ui/sidebar"
+import { UserButton } from "@daveyplate/better-auth-ui"
+import { ModeToggle } from "./mode-toggle"
 
 export function NavSecondary({
   items,
@@ -33,6 +36,13 @@ export function NavSecondary({
               </SidebarMenuButton>
             </SidebarMenuItem>
           ))}
+          <SidebarMenuItem>
+            <ModeToggle />
+          </SidebarMenuItem>
+          <SidebarSeparator />
+          <SidebarMenuItem>
+            <UserButton variant="ghost" />
+          </SidebarMenuItem>
         </SidebarMenu>
       </SidebarGroupContent>
     </SidebarGroup>

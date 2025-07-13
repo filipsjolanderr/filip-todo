@@ -12,14 +12,21 @@ import { createServerRootRoute } from '@tanstack/react-start/server'
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UsersRouteImport } from './routes/users'
+import { Route as UpcomingRouteImport } from './routes/upcoming'
+import { Route as TodayRouteImport } from './routes/today'
 import { Route as RedirectRouteImport } from './routes/redirect'
 import { Route as PostsRouteImport } from './routes/posts'
+import { Route as InboxRouteImport } from './routes/inbox'
 import { Route as DeferredRouteImport } from './routes/deferred'
+import { Route as DashboardRouteImport } from './routes/dashboard'
+import { Route as CompletedRouteImport } from './routes/completed'
 import { Route as PathlessLayoutRouteImport } from './routes/_pathlessLayout'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as UsersIndexRouteImport } from './routes/users.index'
 import { Route as PostsIndexRouteImport } from './routes/posts.index'
 import { Route as UsersUserIdRouteImport } from './routes/users.$userId'
+import { Route as SmartFilterRouteImport } from './routes/smart.$filter'
+import { Route as ProjectsProjectIdRouteImport } from './routes/projects.$projectId'
 import { Route as PostsPostIdRouteImport } from './routes/posts.$postId'
 import { Route as AuthPathnameRouteImport } from './routes/auth/$pathname'
 import { Route as PathlessLayoutNestedLayoutRouteImport } from './routes/_pathlessLayout/_nested-layout'
@@ -27,6 +34,7 @@ import { Route as PostsPostIdDeepRouteImport } from './routes/posts_.$postId.dee
 import { Route as PathlessLayoutNestedLayoutRouteBRouteImport } from './routes/_pathlessLayout/_nested-layout/route-b'
 import { Route as PathlessLayoutNestedLayoutRouteARouteImport } from './routes/_pathlessLayout/_nested-layout/route-a'
 import { ServerRoute as CustomScriptDotjsServerRouteImport } from './routes/customScript[.]js'
+import { ServerRoute as ApiTodosServerRouteImport } from './routes/api/todos'
 import { ServerRoute as ApiAuthSplatServerRouteImport } from './routes/api/auth/$'
 
 const rootServerRouteImport = createServerRootRoute()
@@ -34,6 +42,16 @@ const rootServerRouteImport = createServerRootRoute()
 const UsersRoute = UsersRouteImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const UpcomingRoute = UpcomingRouteImport.update({
+  id: '/upcoming',
+  path: '/upcoming',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
 const RedirectRoute = RedirectRouteImport.update({
@@ -46,9 +64,24 @@ const PostsRoute = PostsRouteImport.update({
   path: '/posts',
   getParentRoute: () => rootRouteImport,
 } as any)
+const InboxRoute = InboxRouteImport.update({
+  id: '/inbox',
+  path: '/inbox',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const DeferredRoute = DeferredRouteImport.update({
   id: '/deferred',
   path: '/deferred',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const DashboardRoute = DashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CompletedRoute = CompletedRouteImport.update({
+  id: '/completed',
+  path: '/completed',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PathlessLayoutRoute = PathlessLayoutRouteImport.update({
@@ -74,6 +107,16 @@ const UsersUserIdRoute = UsersUserIdRouteImport.update({
   id: '/$userId',
   path: '/$userId',
   getParentRoute: () => UsersRoute,
+} as any)
+const SmartFilterRoute = SmartFilterRouteImport.update({
+  id: '/smart/$filter',
+  path: '/smart/$filter',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ProjectsProjectIdRoute = ProjectsProjectIdRouteImport.update({
+  id: '/projects/$projectId',
+  path: '/projects/$projectId',
+  getParentRoute: () => rootRouteImport,
 } as any)
 const PostsPostIdRoute = PostsPostIdRouteImport.update({
   id: '/$postId',
@@ -112,6 +155,11 @@ const CustomScriptDotjsServerRoute = CustomScriptDotjsServerRouteImport.update({
   path: '/customScript.js',
   getParentRoute: () => rootServerRouteImport,
 } as any)
+const ApiTodosServerRoute = ApiTodosServerRouteImport.update({
+  id: '/api/todos',
+  path: '/api/todos',
+  getParentRoute: () => rootServerRouteImport,
+} as any)
 const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -120,12 +168,19 @@ const ApiAuthSplatServerRoute = ApiAuthSplatServerRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/completed': typeof CompletedRoute
+  '/dashboard': typeof DashboardRoute
   '/deferred': typeof DeferredRoute
+  '/inbox': typeof InboxRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/today': typeof TodayRoute
+  '/upcoming': typeof UpcomingRoute
   '/users': typeof UsersRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/smart/$filter': typeof SmartFilterRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
   '/users/': typeof UsersIndexRoute
@@ -135,10 +190,17 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/completed': typeof CompletedRoute
+  '/dashboard': typeof DashboardRoute
   '/deferred': typeof DeferredRoute
+  '/inbox': typeof InboxRoute
   '/redirect': typeof RedirectRoute
+  '/today': typeof TodayRoute
+  '/upcoming': typeof UpcomingRoute
   '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/smart/$filter': typeof SmartFilterRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts': typeof PostsIndexRoute
   '/users': typeof UsersIndexRoute
@@ -150,13 +212,20 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/_pathlessLayout': typeof PathlessLayoutRouteWithChildren
+  '/completed': typeof CompletedRoute
+  '/dashboard': typeof DashboardRoute
   '/deferred': typeof DeferredRoute
+  '/inbox': typeof InboxRoute
   '/posts': typeof PostsRouteWithChildren
   '/redirect': typeof RedirectRoute
+  '/today': typeof TodayRoute
+  '/upcoming': typeof UpcomingRoute
   '/users': typeof UsersRouteWithChildren
   '/_pathlessLayout/_nested-layout': typeof PathlessLayoutNestedLayoutRouteWithChildren
   '/auth/$pathname': typeof AuthPathnameRoute
   '/posts/$postId': typeof PostsPostIdRoute
+  '/projects/$projectId': typeof ProjectsProjectIdRoute
+  '/smart/$filter': typeof SmartFilterRoute
   '/users/$userId': typeof UsersUserIdRoute
   '/posts/': typeof PostsIndexRoute
   '/users/': typeof UsersIndexRoute
@@ -168,12 +237,19 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/completed'
+    | '/dashboard'
     | '/deferred'
+    | '/inbox'
     | '/posts'
     | '/redirect'
+    | '/today'
+    | '/upcoming'
     | '/users'
     | '/auth/$pathname'
     | '/posts/$postId'
+    | '/projects/$projectId'
+    | '/smart/$filter'
     | '/users/$userId'
     | '/posts/'
     | '/users/'
@@ -183,10 +259,17 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/completed'
+    | '/dashboard'
     | '/deferred'
+    | '/inbox'
     | '/redirect'
+    | '/today'
+    | '/upcoming'
     | '/auth/$pathname'
     | '/posts/$postId'
+    | '/projects/$projectId'
+    | '/smart/$filter'
     | '/users/$userId'
     | '/posts'
     | '/users'
@@ -197,13 +280,20 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/_pathlessLayout'
+    | '/completed'
+    | '/dashboard'
     | '/deferred'
+    | '/inbox'
     | '/posts'
     | '/redirect'
+    | '/today'
+    | '/upcoming'
     | '/users'
     | '/_pathlessLayout/_nested-layout'
     | '/auth/$pathname'
     | '/posts/$postId'
+    | '/projects/$projectId'
+    | '/smart/$filter'
     | '/users/$userId'
     | '/posts/'
     | '/users/'
@@ -215,36 +305,47 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   PathlessLayoutRoute: typeof PathlessLayoutRouteWithChildren
+  CompletedRoute: typeof CompletedRoute
+  DashboardRoute: typeof DashboardRoute
   DeferredRoute: typeof DeferredRoute
+  InboxRoute: typeof InboxRoute
   PostsRoute: typeof PostsRouteWithChildren
   RedirectRoute: typeof RedirectRoute
+  TodayRoute: typeof TodayRoute
+  UpcomingRoute: typeof UpcomingRoute
   UsersRoute: typeof UsersRouteWithChildren
   AuthPathnameRoute: typeof AuthPathnameRoute
+  ProjectsProjectIdRoute: typeof ProjectsProjectIdRoute
+  SmartFilterRoute: typeof SmartFilterRoute
   PostsPostIdDeepRoute: typeof PostsPostIdDeepRoute
 }
 export interface FileServerRoutesByFullPath {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
+  '/api/todos': typeof ApiTodosServerRoute
   '/api/auth/$': typeof ApiAuthSplatServerRoute
 }
 export interface FileServerRoutesByTo {
   '/customScript.js': typeof CustomScriptDotjsServerRoute
+  '/api/todos': typeof ApiTodosServerRoute
   '/api/auth/$': typeof ApiAuthSplatServerRoute
 }
 export interface FileServerRoutesById {
   __root__: typeof rootServerRouteImport
   '/customScript.js': typeof CustomScriptDotjsServerRoute
+  '/api/todos': typeof ApiTodosServerRoute
   '/api/auth/$': typeof ApiAuthSplatServerRoute
 }
 export interface FileServerRouteTypes {
   fileServerRoutesByFullPath: FileServerRoutesByFullPath
-  fullPaths: '/customScript.js' | '/api/auth/$'
+  fullPaths: '/customScript.js' | '/api/todos' | '/api/auth/$'
   fileServerRoutesByTo: FileServerRoutesByTo
-  to: '/customScript.js' | '/api/auth/$'
-  id: '__root__' | '/customScript.js' | '/api/auth/$'
+  to: '/customScript.js' | '/api/todos' | '/api/auth/$'
+  id: '__root__' | '/customScript.js' | '/api/todos' | '/api/auth/$'
   fileServerRoutesById: FileServerRoutesById
 }
 export interface RootServerRouteChildren {
   CustomScriptDotjsServerRoute: typeof CustomScriptDotjsServerRoute
+  ApiTodosServerRoute: typeof ApiTodosServerRoute
   ApiAuthSplatServerRoute: typeof ApiAuthSplatServerRoute
 }
 
@@ -255,6 +356,20 @@ declare module '@tanstack/react-router' {
       path: '/users'
       fullPath: '/users'
       preLoaderRoute: typeof UsersRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/upcoming': {
+      id: '/upcoming'
+      path: '/upcoming'
+      fullPath: '/upcoming'
+      preLoaderRoute: typeof UpcomingRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/redirect': {
@@ -271,11 +386,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PostsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/inbox': {
+      id: '/inbox'
+      path: '/inbox'
+      fullPath: '/inbox'
+      preLoaderRoute: typeof InboxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/deferred': {
       id: '/deferred'
       path: '/deferred'
       fullPath: '/deferred'
       preLoaderRoute: typeof DeferredRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/dashboard': {
+      id: '/dashboard'
+      path: '/dashboard'
+      fullPath: '/dashboard'
+      preLoaderRoute: typeof DashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/completed': {
+      id: '/completed'
+      path: '/completed'
+      fullPath: '/completed'
+      preLoaderRoute: typeof CompletedRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_pathlessLayout': {
@@ -312,6 +448,20 @@ declare module '@tanstack/react-router' {
       fullPath: '/users/$userId'
       preLoaderRoute: typeof UsersUserIdRouteImport
       parentRoute: typeof UsersRoute
+    }
+    '/smart/$filter': {
+      id: '/smart/$filter'
+      path: '/smart/$filter'
+      fullPath: '/smart/$filter'
+      preLoaderRoute: typeof SmartFilterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/projects/$projectId': {
+      id: '/projects/$projectId'
+      path: '/projects/$projectId'
+      fullPath: '/projects/$projectId'
+      preLoaderRoute: typeof ProjectsProjectIdRouteImport
+      parentRoute: typeof rootRouteImport
     }
     '/posts/$postId': {
       id: '/posts/$postId'
@@ -364,6 +514,13 @@ declare module '@tanstack/react-start/server' {
       path: '/customScript.js'
       fullPath: '/customScript.js'
       preLoaderRoute: typeof CustomScriptDotjsServerRouteImport
+      parentRoute: typeof rootServerRouteImport
+    }
+    '/api/todos': {
+      id: '/api/todos'
+      path: '/api/todos'
+      fullPath: '/api/todos'
+      preLoaderRoute: typeof ApiTodosServerRouteImport
       parentRoute: typeof rootServerRouteImport
     }
     '/api/auth/$': {
@@ -433,11 +590,18 @@ const UsersRouteWithChildren = UsersRoute._addFileChildren(UsersRouteChildren)
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   PathlessLayoutRoute: PathlessLayoutRouteWithChildren,
+  CompletedRoute: CompletedRoute,
+  DashboardRoute: DashboardRoute,
   DeferredRoute: DeferredRoute,
+  InboxRoute: InboxRoute,
   PostsRoute: PostsRouteWithChildren,
   RedirectRoute: RedirectRoute,
+  TodayRoute: TodayRoute,
+  UpcomingRoute: UpcomingRoute,
   UsersRoute: UsersRouteWithChildren,
   AuthPathnameRoute: AuthPathnameRoute,
+  ProjectsProjectIdRoute: ProjectsProjectIdRoute,
+  SmartFilterRoute: SmartFilterRoute,
   PostsPostIdDeepRoute: PostsPostIdDeepRoute,
 }
 export const routeTree = rootRouteImport
@@ -445,6 +609,7 @@ export const routeTree = rootRouteImport
   ._addFileTypes<FileRouteTypes>()
 const rootServerRouteChildren: RootServerRouteChildren = {
   CustomScriptDotjsServerRoute: CustomScriptDotjsServerRoute,
+  ApiTodosServerRoute: ApiTodosServerRoute,
   ApiAuthSplatServerRoute: ApiAuthSplatServerRoute,
 }
 export const serverRouteTree = rootServerRouteImport

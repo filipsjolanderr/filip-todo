@@ -5,6 +5,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query"
 import type { ReactNode } from "react"
 
 import { authClient } from "../lib/auth-client"
+import { ThemeProvider } from "next-themes"
 
 // Create a client
 const queryClient = new QueryClient({
@@ -21,14 +22,22 @@ export function Providers({ children }: { children: ReactNode }) {
     return (
         <QueryClientProvider client={queryClient}>
             <AuthQueryProvider>
-                <AuthUIProviderTanstack
-                    authClient={authClient}
-                    navigate={(href) => router.navigate({ href })}
-                    replace={(href) => router.navigate({ href, replace: true })}
-                    Link={({ href, ...props }) => <Link to={href} {...props} />}
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="system"
+                    enableSystem
+                    disableTransitionOnChange
+                    themes={["light", "dark"]}
                 >
-                    {children}
-                </AuthUIProviderTanstack>
+                    <AuthUIProviderTanstack
+                        authClient={authClient}
+                        navigate={(href) => router.navigate({ href })}
+                        replace={(href) => router.navigate({ href, replace: true })}
+                        Link={({ href, ...props }) => <Link to={href} {...props} />}
+                    >
+                        {children}
+                    </AuthUIProviderTanstack>
+                </ThemeProvider>
             </AuthQueryProvider>
         </QueryClientProvider>
     )

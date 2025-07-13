@@ -1,13 +1,17 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { UserButton } from '@daveyplate/better-auth-ui'
+import { createFileRoute, redirect } from '@tanstack/react-router'
+import { useEffect } from 'react'
+import { useNavigate } from '@tanstack/react-router'
+
 export const Route = createFileRoute('/')({
-  component: Home,
+  component: Index,
 })
 
-function Home() {
-  return (
-    <div className="p-2">
-      <UserButton />
-    </div>
-  )
+function Index() {
+  const navigate = useNavigate()
+
+  useEffect(() => {
+    navigate({ to: '/inbox' })
+  }, [navigate])
+
+  return null
 }
